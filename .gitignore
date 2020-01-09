@@ -42,7 +42,7 @@ vignettes/*.pdf
 .Renviron
 
 # Ignore redis cache
-data/
+/data/
 
 # Ignore MySQL mock server
 mysql/
