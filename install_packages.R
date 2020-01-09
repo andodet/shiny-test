@@ -1,0 +1,13 @@
+# install required packages
+install.packages("shiny", dependencies = T, repos = "http://cran.rstudio.com/")
+install.packages("dplyr", dependencies = T, repos = "http://cran.rstudio.com/")
+install.packages("shinydashboard", dependencies = T, repos = "http://cran.rstudio.com/")
+install.packages("shinydashboardPlus", dependencies = T, repos = "http://cran.rstudio.com/")
+install.packages("ggplot2", dependencies = T, repos = "http://cran.rstudio.com/")
+install.packages("shinyjs", dependencies = T, repos = "http://cran.rstudio.com/")
+install.packages("sodium", dependencies = T, repos = "http://cran.rstudio.com/")
+install.packages("shinyWidgets", dependencies = T, repos = "http://cran.rstudio.com/")
+install.packages("RMySQL", dependencies = T, repos = "http://cran.rstudio.com/")
+install.packages("R6", dependencies = T, repos = "http://cran.rstudio.com/")
+install.packages("redux", dependencies = T, repos = "http://cran.rstudio.com/")
+install.packages("scales", dependencies = T, repos = "http://cran.rstudio.com/")
