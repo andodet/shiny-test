@@ -1,65 +1,65 @@
-# Brazillian e-commerce dashboard 📦️
+# Brazillian e-commerce dashboard 📦
 
-**@TODO:** explain what `shiny` is and why it is meaningful for data-driven webapp development.
+The following dashboard (based on an aggregated version of the [`e-commerce dataset by Olist`](https://www.kaggle.com/olistbr/brazilian-ecommerce) ) has been built to explore a few [`shiny`](https://shiny.rstudio.com) core concepts:
 
-The following dashboard (based on the [`e-commerce dataset by Olist`](https://www.kaggle.com/olistbr/brazilian-ecommerce) ) has been built to explore a few [`shiny`](https://shiny.rstudio.com) core concepts:
+* Reactivity: data has been preaggreated in order to take heavy computaiton away from the user, providing a faster and more reactive user experience. 
+* [`shinydashboard`](https://rstudio.github.io/shinydashboard) structure for faster dashboard styling and layout. Additional UI elements (like the right sidebar) are provided by
+[`shinydashboardplus`](https://rinterface.github.io/shinydashboardPlus/) package.
+* User authenthication and password hasing is performed through [`shinyauthr`](https://github.com/PaulC91/shinyauthr). Usernames and passwords are stored in a
+MySQL database.  
+This authenthication method **is not** meant to be used in a production environment as it requires to implement logic to check for client authenthication
+on every piece of content.  
+* In order to anticipate multi-user usage, plots are cached via [``redis``](https://redis.io), halvening load times to render cached plots.
+* The app (and the mock user db) has been dockerized for easy deployment.
 
-* Reactivity: data has been preaggreated in order to take heavy computaiton away from the user, providing a faster and more reactive user experience. **TODO**: specify both on data and input menus
-* [`shinydashboard`](https://rstudio.github.io/shinydashboard) structure for faster dashboard styling and layout.
-* User authenthication through [`shinyauthr`](https://github.com/PaulC91/shinyauthr).  
-**Disclaimer**: by any mean this should be considered a safe approach  due to the lack strong server-side checks.
-* In order to anticipate multi-user usage, plots are cached via [``redis``](https://redis.io), halvening load times for cached plots.
-
-In order to easily deploy
-
-* Dockerized deployment through `docker-compose`
 
 ## Overview
 
-The dashboard is composed by two main sections:
+The dashboard conists in two views:
 
-* **Sales**: this section is mainly directed to business users, who will find KPIs such as:
-    + Total oprders
-    + Total revenue
-    + Average order value
-    + Average order approval time
+1. Sales
+    * Order volumes plot over time.
+    * Sales brekdwon by state / city.
+    
+2. Operations
+    * Order approval time by state/city.
+    * Delivery processing time by state/city.
+    * Shipping time by state/city  
 
-* **Operations**:
-    + Order approval times 
-    + TBD
-    + TBD
+
+The right sidebar allows to:
+
+* Filter by relevant dimensions.
+* Change reporting window (daily, weekly, monthly).
+* Download filtered data in .csv format.
+
 
 ## Usage
-### Prerequisites
-In order to build the image `docker` and `docker-compose` will be needed.
- This will likely take some time as all the packages (and their dependencies) will need to be installed.
+### Installation
 
-### How to install
+`docker` and `docker-compose` will be neede to build and run the containers.  
 
-Clone the repository 
-```
-https://github.com/andodet/shiny-dash-test.git
-```
+To download and build the app just run:
+```sh
+# Clone the repo
+git clone https://github.com/andodet/shiny-test
 
-Build the custom docker image (this will take a while as all the packages will be built from source)
-```
-$ cd shiny-dash-test
-$ docker-compose up --build
+# Build the image
+cd shiny-test
+docker-compose up --build
 ```
 
-Point your broser to [``http://localhost:3838/app``](http://localhost:3838/app)
+This will likely take a while as a number of R packages will be installed with all their dependencies. After the process is finished the dashboard will be exposed on
+[http://localhost:3838/app](http://localhost:3838/app)
+
 
 ## Further development
 
-This dashboard is has been developed as a proof of concept and not intended for deployment in a production environment.  
-In order tog get it ready for production, a few changes are essential:
+This dashboard is meant to be a proof of concept and it would still require a few tweaks before being ready for deployment.
+Namely, it's needed to:
 
-* Proper authenthication (i.e behind and nginx server) 
-* Unit/integration test
-* Refactor the app following a r-package structure (with tools like [``golem``](https://thinkr-open.github.io/golem/)) to make it easier to share and integrate with CI/CD tools.
-* Db credentials are not supposed to be displayed in [`docker-compose.yml`](docker-compose.yml), build image using docker secrets.
-* Set up a password for Redis cache
+* Setup proper authehtication (via [`shinyproxy`]() or behind and nginx server).
+* Unit testing.
+* Use secrets for db credentials.
+* Set up a password for redis instance.
 
-## Screenshots
-
-Couple screenshots of the final result.
